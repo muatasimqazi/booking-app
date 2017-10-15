@@ -13,4 +13,11 @@ def page_not_found(e):
 def index():
     return render_template('base.html')
 
+@app.route("/faq")
+def faq():
+    return render_template('faq.html')
+
+@app.route("/form")
+def form():
+    return render_template('form.html')
 app.run()

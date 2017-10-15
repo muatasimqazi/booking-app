@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col s12 m8 l6">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" type="text" class="validate">
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="address" type="text" class="validate">
+          <label for="address">Address</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="phone" type="text" class="validate">
+          <label for="phone">Phone#</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate">
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="service" placeholder="Repair, Maintenance" type="text" class="validate">
+          <label for="service">Service Type:</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="eq_type" placeholder="Furnace, Ac, Heatpump, ..." type="text" class="validate">
+          <label for="eq_type">Equipment Type:</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="eq_location" placeholder="Garage, Attic, Crawl space, ..." type="text" class="validate">
+          <label for="eq_location">Equipment Location:</label>
+        </div>
+      </div>
+
+
+      <ul id="dropdown2" class="dropdown-content">
+        <li><a href="#!">Furnace</a></li>
+        <li><a href="#!">Air Conditioner</a></li>
+        <li><a href="#!">Heat Pump</a></li>
+        <li class="divider"></li>
+        <li><a href="#!">Water Heater</a></li>
+        <li><a href="#!">Fire Place</a></li>
+    <li><a href="#!">one<span class="badge">1</span></a></li>
+    <li><a href="#!">two<span class="new badge">1</span></a></li>
+    <li><a href="#!">three</a></li>
+  </ul>
+  <a class="btn dropdown-button" href="#!" data-activates="dropdown2">Equipment Type<i class="material-icons right">arrow_drop_down</i></a>
+
+
+      <div class="row">
+        <div class="col s12">
+          This is an inline input field:
+          <div class="input-field inline">
+            <input id="email" type="email" class="validate">
+            <label for="email" data-error="wrong" data-success="right">Email</label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col s12 m8 l6">
+    <img src="http://p13cdn4static.sharpschool.com/UserFiles/Servers/Server_181580/Image/calendar.jpg" alt="">
+  </div>
+</div>
+
+
+  {% endblock %}
