@@ -1,0 +1,6 @@
+.tabs .indicator {
+  background-color: white !important;
+}
+.navbar-fixed {
+   z-index: 999;
+}

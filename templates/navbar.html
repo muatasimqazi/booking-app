@@ -1,16 +1,22 @@
 <div class="navbar navbar-fixed">
   <nav>
     <div class="nav-wrapper purple darken-4">
-      <a href="{{url_for('index')}}" class="brand-logo white-text"><span class="bal-logo">Booking</span><span class="bal-logo-2"> App</span></a>
-      <a href="#" data-activates="mobile-demo" class="button-collapse right"><i class="material-icons">menu</i></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <ul id="slide-out" class="side-nav">
         <li><a href="{{url_for('index')}}">Home</a></li>
-        <li><a href="{{url_for('signup')}}">Login</a></li>
+        <li><a href="{{url_for('signup')}}">Sign Up</a></li>
+        <li><a href="{{url_for('faq')}}">FAQ</a></li>
+        <li><a href="{{url_for('contact')}}">Contact</a></li>
+        <li><a href="{{url_for('about')}}">About</a></li>
       </ul>
-      <ul class="side-nav" id="mobile-demo">
-        <li><a href="{{url_for('index')}}">Home</a></li>
-        <li><a href="{{url_for('signup')}}">Login</a></li>
-      </ul>
+
+      <div class="row">
+        <div class="col s1">
+          <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+        </div>
+        <div class="col s5">
+          <a href="{{url_for('index')}}" class="brand-logo white-text">Booking App</a>
+        </div>
+      </div>
     </div>
   </nav>
 </div>
