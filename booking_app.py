@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+import quickstart
+import simplejson as json # for output formatting
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -48,7 +50,10 @@ def signup():
 @app.route("/")
 @app.route('/home')
 def index():
-    return render_template('index.html')
+    events = quickstart.main()
+    print(json.dumps(events, indent=2))
+    # (events)
+    return render_template('index.html', events=events)
 
 @app.route("/faq")
 def faq():
@@ -75,12 +80,12 @@ def login():
         if userobject:
             if userobject.password == password:
                 session['username'] = username
-                return redirect('/home') 
+                return redirect('/home')
             else:
                 return render_template('login.html', pwd_error="wrong password", usernamevalue= username)
         else:
             return render_template('login.html', uname_error="user doesn't exist", usernamevalue= username)
-@app.route('/logout', methods=['GET'])            
+@app.route('/logout', methods=['GET'])
 def logout():
     del session['username']
     return redirect('/home')
