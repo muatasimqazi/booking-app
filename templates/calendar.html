@@ -1,33 +1,6 @@
 {% block content %}
 <!-- <div class="sites-embed-content sites-embed-type-calendar"><iframe id="390031416" src="https://www.google.com/calendar/embed?src=duneland.k12.in.us_amkb567i1vf6t80i5niedlbdb4@group.calendar.google.com&amp;color=%23668CD9&amp;mode=MONTH&amp;showTitle=0&amp;showNav=1&amp;showDate=1&amp;showTabs=0&amp;showCalendars=0&amp;hl=en" title="Google Sites Demo Calendar" width="100%" height="600" frameborder="0" scrolling="no"></iframe></div> -->
-<table>
-        <thead>
-          <tr>
-              <th>Mon</th>
-              <th>Tue</th>
-              <th>Wed</th>
-              <th>Thu</th>
-              <th>Fri</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for event in events %}
-          <tr>
-            <td>
-              <div class="grey lighten-4 center"><p>{{event['summary']}}
-              <br><small>{{event['start']['dateTime']}}</small></p>
-            </div>
-            </td>
-            <td>{{event['summary']}}</td>
-            <td>{{event['summary']}}</td>
-            <td>
-              <div class="teal lighten-3 center"><p>{{event['summary']}}
-              <br><small>{{event['start']['dateTime']}}</small></p>
-              </div>
-            </td>
-            <td>{{event['summary']}}</td>
-          </tr>
-            {% endfor %}
-        </tbody>
-</table>
+<div id='calendar'></div>
+<!-- <div class="datepicker">s</div> -->
+
 {% endblock %}

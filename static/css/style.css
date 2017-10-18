@@ -4,3 +4,6 @@
 .navbar-fixed {
    z-index: 999;
 }
+.picker__box {
+  border: none !important;
+}

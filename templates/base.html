@@ -9,8 +9,10 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.1/fullcalendar.min.css">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   </head>
 
   <body>
@@ -28,6 +30,26 @@
     <!-- Load Handlebars.js from CloudFlare’s CDN. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/moment.min.js')}}"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/locale/af.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.1/fullcalendar.min.js"></script>
+    <script scr="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.1/gcal.js"></script>
+
+    <script type='text/javascript'>
+
+$(document).ready(function() {
+    $('#calendar').fullCalendar({
+        googleCalendarApiKey: 'AIzaSyCWcoYxTmxnRWPveI9G7RFHCpflG0nzSoA',
+        events: {
+            googleCalendarId: 'muatasimqazi@gmail.com',
+            className: 'gcal-event', // an option!
+            color: 'yellow',   // an option!
+            textColor: 'black' // an option!
+        }
+    });
+});
+
+</script>
 
   </body>
 
