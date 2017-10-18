@@ -5,18 +5,27 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://booking_app:booking@localhost:8889/booking_app'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://booking_app:1234@localhost:8889/booking_app'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'xy337KGys&'
-class User(db.Model):
-    id = db.Column(db.Integer,primary_key=True)
-    username = db.Column(db.String(120))
-    password = db.Column(db.String(120))
-    def __init__(self,username,password):
-        self.username = username
-        self.password = password
 
+class User(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    firstName = db.Column(db.String(120))
+    lastName = db.Column(db.String(120))
+    email = db.Column(db.String(120), unique=True)
+    address = db.Column(db.String(120))
+    serviceType = db.Column(db.String(220))
+
+    def __init__(self, firstName, lastName, email, address, serviceType):
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+        self.address = address
+        self.serviceType = serviceType
+        
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html', ), 404
