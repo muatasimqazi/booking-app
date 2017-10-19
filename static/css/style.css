@@ -7,3 +7,9 @@
 .picker__box {
   border: none !important;
 }
+.no-uppercase {
+  text-transform: capitalize;
+}
+.no-border {
+  border: none !important;
+}

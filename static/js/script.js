@@ -26,6 +26,14 @@ $('.datepicker').addClass('picker--focused picker--opened');
 
   $('#calendar').fullCalendar({
         // put your options and callbacks here
-        weekends: false // will hide Saturdays and Sundays
+        weekends: false, // will hide Saturdays and Sundays
+        // defaultView: 'basicWeek',
+        header: {
+        left: 'prev,next today myCustomButton',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+    }
+
     })
+    // $('#calendar').fullCalendar('next');
 });

@@ -4,31 +4,39 @@
   <div class="col s3">
     <div class="card">
       <div class="card-content">
-        <a class="btn-floating"><i class="material-icons z-depth-1">add</i></a>
-        <div class="chip z-depth-1">
-            Summer
+        <p>Service history and equipment information</p>    <!-- Modal Trigger -->
+        <div class="divider"></div>
+        <br>
+        <div class="row">
+          <div class="col s6">
+            <a class="waves-effect waves-light red btn modal-trigger z-depth-0 no-uppercase">Login</a>
+
+            <!-- <a class="waves-effect waves-light red btn modal-trigger btn-flat z-depth-0 no-uppercase" href="#modal1"><i class="material-icons right">send</i>Sign Up</a> -->
+          </div>
+          <div class="col s6">
+            <a class="waves-effect waves-light teal btn modal-trigger z-depth-0 no-uppercase">Sign up</a>
+          </div>
         </div>
+        <!-- <a class="btn-floating"><i class="material-icons z-depth-1">add</i></a> -->
+        <!-- <div class="chip z-depth-1">
+            Summer
+        </div> -->
         <!-- Modal Trigger -->
-         <a class="waves-effect grey lighten-3 btn modal-trigger black-text z-depth-1" href="#modal1">Schedule</a>
+         <!-- <a class="waves-effect grey lighten-3 btn modal-trigger black-text z-depth-1" href="#modal1">Schedule</a> -->
+
+              <!-- <a class="waves-effect grey lighten-3 btn modal-trigger black-text z-depth-1" href="#modal1">Schedule</a> -->
+
       </div>
+
       <div class="card-tabs">
         <ul class="tabs tabs-fixed-width purple darken-4">
-          <li class="tab text-green"><a class="white-text" href="#test4">Test 1</a></li>
-          <li class="tab"><a class="active white-text" href="#test5">Test 2</a></li>
-          <li class="tab"><a class="white-text" href="#test6">Test 3</a></li>
+          <li class="tab text-green"><a class="active white-text no-uppercase" href="#furnace">Furnace</a></li>
+          <li class="tab"><a class="white-text no-uppercase" href="#heat-pump">Heat Pump</a></li>
+          <li class="tab"><a class="white-text no-uppercase" href="#air-conditioner">AC</a></li>
         </ul>
       </div>
       <div class="card-content">
-        <div id="test4">
-            <ul>
-              {% for event in events %}
-              <li>{{event['summary']}}</li>
-                {% endfor %}
-            </ul>
-
-        </div>
-        <div id="test5">Test 2</div>
-        <div id="test6">Test 3</div>
+        {% include "history.html" %}
       </div>
     </div>
 

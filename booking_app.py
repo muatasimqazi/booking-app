@@ -25,7 +25,7 @@ class User(db.Model):
         self.email = email
         self.address = address
         self.serviceType = serviceType
-        
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html', ), 404
@@ -59,8 +59,8 @@ def signup():
 @app.route("/")
 @app.route('/home')
 def index():
-    events = quickstart.main()
-    print(json.dumps(events, indent=2))
+    events = {"a": "aa"}#quickstart.main()
+    #print(json.dumps(events, indent=2))
     # (events)
     return render_template('index.html', events=events)
 
