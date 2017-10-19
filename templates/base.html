@@ -18,13 +18,17 @@
   <body>
     {% include "navbar.html"%}
     {% block content %}
-
+    {% include "login.html" %}
+    {% include "signup.html" %}
     {% endblock %}
+
 
     {% include "footer.html" %}
 
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+  crossorigin="anonymous"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
     <!-- Load Handlebars.js from CloudFlare’s CDN. -->
