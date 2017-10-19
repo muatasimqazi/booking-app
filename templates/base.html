@@ -15,7 +15,7 @@
 
   </head>
 
-  <body>
+  <body onload="my_script({{ cars }})">
     {% include "navbar.html"%}
     {% block content %}
     {% include "login.html" %}
@@ -40,18 +40,12 @@
     <script scr="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.1/gcal.js"></script>
 
     <script type='text/javascript'>
+    function my_script(names){
+       console.log('script called.');
+       var cars = names;
+       console.log(cars);
+     }
 
-$(document).ready(function() {
-    $('#calendar').fullCalendar({
-        googleCalendarApiKey: 'AIzaSyCWcoYxTmxnRWPveI9G7RFHCpflG0nzSoA',
-        events: {
-            googleCalendarId: 'muatasimqazi@gmail.com',
-            className: 'gcal-event', // an option!
-            color: 'yellow',   // an option!
-            textColor: 'black' // an option!
-        }
-    });
-});
 
 </script>
 

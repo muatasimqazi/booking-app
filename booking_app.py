@@ -19,6 +19,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True)
     address = db.Column(db.String(120))
     serviceType = db.Column(db.String(220))
+    events = db.relationship('Event', backref='owner')
 
     def __init__(self, firstName, lastName, email, address, serviceType):
         self.firstName = firstName
@@ -31,18 +32,15 @@ class User(db.Model):
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
-    start = db.Column(db.DateTime, nullable=False,
-        default=datetime.utcnow)
-    end = db.Column(db.DateTime, nullable=False,
-        default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
-        nullable=False)
+    start = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    end = db.Column(db.DateTime)
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, title, start, end, user_id):
+    def __init__(self, title, start, end, owner):
         self.title = title
         self.start = start
         self.end = end
-        self.user_id = user_id
+        self.owner = owner
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -74,13 +72,32 @@ def signup():
         else:
             return render_template('signup.html', name_error="user already exists", user_name=username)
 
-@app.route("/")
-@app.route('/home')
+
+def create_event():
+    return null
+
+@app.route("/", methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 def index():
+
+
+    if request.method == 'POST':
+
+         owner = User.query.filter_by(firstName='admin').first()
+
+         event_title = request.form['event-title']
+         event_start = request.form['event-start']
+         event_end = request.form['event-end']
+
+         event_new = Event(event_title, event_start, event_end, owner)
+         db.session.add(event_new)
+         db.session.commit()
+         #event_id = event_new.id;
+    cars = ["Volvo","Ferrari","Audi","BMW","Mercedes","Porche","Saab","Avanti"]
     events = {"a": "aa"}#quickstart.main()
     #print(json.dumps(events, indent=2))
     # (events)
-    return render_template('index.html', events=events)
+    return render_template('index.html', cars=cars)
 
 @app.route("/faq")
 def faq():

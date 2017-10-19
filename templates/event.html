@@ -1,0 +1,30 @@
+{% block content %}
+<!-- Modal Structure -->
+<div id="new-event" class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <form action="" method="post" class="col s12">
+        <div class="input-field">
+          <input id="event_title" name="event-title" type="text" class="validate">
+          <label for="event_title">Event Title</label>
+        </div>
+
+        <div class="input-field">
+          <input id="event_start" name="event-start" type="text" class="validate">
+          <label for="event_start">Event Start</label>
+        </div>
+
+
+        <div class="input-field">
+          <input id="event_end" name="event-end" type="text" class="validate">
+          <label for="event_end">Event End</label>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Create
+      <i class="material-icons right">send</i>
+    </button>
+      </form>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
