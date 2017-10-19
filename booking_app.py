@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import quickstart
 import simplejson as json # for output formatting
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -25,6 +26,23 @@ class User(db.Model):
         self.email = email
         self.address = address
         self.serviceType = serviceType
+
+# Event class
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120))
+    start = db.Column(db.DateTime, nullable=False,
+        default=datetime.utcnow)
+    end = db.Column(db.DateTime, nullable=False,
+        default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
+        nullable=False)
+
+    def __init__(self, title, start, end, user_id):
+        self.title = title
+        self.start = start
+        self.end = end
+        self.user_id = user_id
 
 @app.errorhandler(404)
 def page_not_found(e):
