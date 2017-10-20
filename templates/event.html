@@ -1,30 +1,72 @@
 {% block content %}
-<!-- Modal Structure -->
+
 <div id="new-event" class="modal">
   <div class="modal-content">
+    <h4>Select Schedule</h4>
+    <p>Please select a time slot for your next appointment.</p>
+
     <div class="row">
-      <form action="" method="post" class="col s12">
+      <form method="post" class="col s12">
         <div class="input-field">
           <input id="event_title" name="event-title" type="text" class="validate">
-          <label for="event_title">Event Title</label>
+          <label for="event_title">Service Name</label>
+        </div>
+        <div class="row">
+          <div class="input-field col s4">
+            <input id="event-date" name="event-date" type="date" class="validate">
+          </div>
+          <div class="input-field col s4">
+            <select id="event-start" name="event-start">
+                <option value="09:00">9:00am</option>
+                <option value="10:00">10:00am</option>
+                <option value="11:00">11:00am</option>
+              </select>
+            <label>Start Time</label>
+          </div>
+          <div class="input-field col s4">
+            <select id="event-end" name="event-end">
+              <option value="09:00">9:00am</option>
+              <option value="10:00">10:00am</option>
+              <option value="11:00">11:00am</option>
+              </select>
+            <label>End Time</label>
+          </div>
         </div>
 
         <div class="input-field">
-          <input id="event_start" name="event-start" type="text" class="validate">
-          <label for="event_start">Event Start</label>
+          <input id="eq_type" placeholder="Furnace, Ac, Heatpump, ..." type="text" class="validate">
+          <label for="eq_type">Equipment Type:</label>
         </div>
+        <span>
+      <input name="group1" type="radio" id="test1" />
+      <label for="test1">Furnace</label>
+    </span>
+        <span>
+      <input name="group1" type="radio" id="test2" />
+      <label for="test2">Air Conditioner</label>
+    </span>
+        <span>
+      <input class="with-gap" name="group1" type="radio" id="test3"  />
+      <label for="test3">Heat Pump</label>
+    </span>
+        <span>
+      <input name="group1" type="radio" id="test4" />
+      <label for="test4">Water Heater</label>
+    </span>
+        <span>
+      <input name="group1" type="radio" id="test5" />
+      <label for="test5">Fire Place</label>
+    </span>
+    </div>
+    <br>
 
-
-        <div class="input-field">
-          <input id="event_end" name="event-end" type="text" class="validate">
-          <label for="event_end">Event End</label>
-        </div>
-        <button class="btn waves-effect waves-light" type="submit" name="action">Create
+    <button class="btn waves-effect waves-light" type="submit" name="action">Create
       <i class="material-icons right">send</i>
     </button>
-      </form>
-    </div>
 
+    </form>
   </div>
+
 </div>
+
 {% endblock %}

@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
-import quickstart
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 import simplejson as json # for output formatting
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -32,8 +31,9 @@ class User(db.Model):
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
-    start = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    end = db.Column(db.DateTime)
+    # start = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    start = db.Column(db.String(120))
+    end = db.Column(db.String(120))
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __init__(self, title, start, end, owner):
@@ -80,24 +80,29 @@ def create_event():
 @app.route('/home', methods=['GET', 'POST'])
 def index():
 
-
+    owner = User.query.filter_by(firstName='admin').first()
     if request.method == 'POST':
 
-         owner = User.query.filter_by(firstName='admin').first()
-
          event_title = request.form['event-title']
-         event_start = request.form['event-start']
-         event_end = request.form['event-end']
+         event_date = request.form['event-date']
+         event_start = event_date + 'T' + request.form['event-start']
+         event_end = event_date + 'T' + request.form['event-end']
 
          event_new = Event(event_title, event_start, event_end, owner)
          db.session.add(event_new)
          db.session.commit()
-         #event_id = event_new.id;
-    cars = ["Volvo","Ferrari","Audi","BMW","Mercedes","Porche","Saab","Avanti"]
-    events = {"a": "aa"}#quickstart.main()
-    #print(json.dumps(events, indent=2))
-    # (events)
-    return render_template('index.html', cars=cars)
+         event_id = event_new.id;
+
+    events = Event.query.filter_by(owner=owner).all()
+    event = []
+    for item in events:
+        event.append(toList(item))
+
+    return render_template('index.html', event=event)
+
+def toList(self):
+    strEvent = {'title': self.title, 'start': self.start, 'end': self.end }
+    return strEvent
 
 @app.route("/faq")
 def faq():

@@ -10,21 +10,11 @@
         <div class="row">
           <div class="col s6">
             <a class="waves-effect waves-light red btn modal-trigger z-depth-0 no-uppercase" href="#login">Login</a>
-
-            <!-- <a class="waves-effect waves-light red btn modal-trigger btn-flat z-depth-0 no-uppercase" href="#modal1"><i class="material-icons right">send</i>Sign Up</a> -->
           </div>
           <div class="col s6">
             <a class="waves-effect waves-light teal btn modal-trigger z-depth-0 no-uppercase" href="#signup">Sign up</a>
           </div>
         </div>
-        <!-- <div class="chip z-depth-1">
-            Summer
-        </div> -->
-        <!-- Modal Trigger -->
-        <!-- <a class="waves-effect grey lighten-3 btn modal-trigger black-text z-depth-1" href="#modal1">Schedule</a> -->
-
-        <!-- <a class="waves-effect grey lighten-3 btn modal-trigger black-text z-depth-1" href="#modal1">Schedule</a> -->
-
       </div>
 
       <div class="card-tabs">
@@ -34,12 +24,14 @@
           <li class="tab"><a class="white-text no-uppercase" href="#air-conditioner">AC</a></li>
         </ul>
       </div>
+
       <div class="card-content">
         {% include "history.html" %}
       </div>
     </div>
 
   </div>
+  <span class="test-event" data-event="{{event}}"></span>
 
   <div class="col s9 m9 l9 right">
     <div class="card-panel">
@@ -47,10 +39,7 @@
     </div>
   </div>
 
-  {% include "form.html" %}
-  {% include "login.html" %}
-  {% include "signup.html" %}
-
+  {% include "form.html" %} {% include "login.html" %} {% include "signup.html" %}
 
 </div>
 {% endblock %}
