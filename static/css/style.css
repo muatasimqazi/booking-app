@@ -38,11 +38,12 @@
   border-top: 3px solid red !important;
 }
 
-.ui-draggable, .fc-event {
+#external-events .fc-event {
   color: #fff;
   text-decoration: none;
   padding: 5px;
   margin-bottom: 10px;
   cursor: all-scroll;
   border: none;
+  text-align: center;
 }

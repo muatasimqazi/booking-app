@@ -15,24 +15,23 @@ $(document).ready(function() {
     draggable: true, // Choose whether you can drag to open on touch screens,
   });
 
-  // $(".ui-draggable").draggable();
 
+  $('#external-events .fc-event').each(function() {
+    $(this).data('event', {
+      title: $.trim($(this).text()),
+      stick: true,
+      overlap: false
+    });
 
-  $('.timepicker').pickatime({
-    default: 'now', // Set default time: 'now', '1:30AM', '16:30'
-    fromnow: 0, // set default time to * milliseconds from now (using with default = 'now')
-    twelvehour: false, // Use AM/PM or 24-hour format
-    donetext: 'OK', // text for done-button
-    cleartext: 'Clear', // text for clear-button
-    canceltext: 'Cancel', // Text for cancel-button
-    autoclose: false, // automatic close timepicker
-    ampmclickable: true, // make AM PM clickable
-    aftershow: function() {} //Function for after opening timepicker
+    $(this).draggable({
+      zIndex: 999,
+      revert: true,
+      revertDuration: 0
+    });
+
   });
 
-
   $('#calendar').fullCalendar({
-    // put your options and callbacks here
     weekends: false, // will hide Saturdays and Sundays
     defaultView: 'month',
     header: {
@@ -45,19 +44,26 @@ $(document).ready(function() {
     editable: true,
     eventStartEditable: true,
     eventOverlap: false,
-    eventConstraint: {
-      start: '09:00', // a start time (10am in this example)
-      end: '15:00', // an end time (5pm in this example)
-      dow: [1, 2, 3, 4, 5]
-      // days of week. an array of zero-based day of week integers (0=Sunday)
-      // (Monday-Thursday in this example)
+    // eventConstraint: {
+    //   start: '09:00', // a start time (10am in this example)
+    //   end: '15:00', // an end time (5pm in this example)
+    //   dow: [1, 2, 3, 4, 5]
+    //   // days of week. an array of zero-based day of week integers (0=Sunday)
+    //   // (Monday-Thursday in this example)
+    // },
+    droppable: true,
+    drop: function(date, e, ui, resourceId) {
+      console.log(resourceId.start);
+      $('#new-event').modal('open');
+      $('#event_title').val(e.target.textContent);
+      $("label[for='event_title']").empty();
+      $('#event-date').val(date.format());
     },
 
     eventRender: function(event, element) {
       element.attr('href', '#event-modal');
       element.addClass('modal-trigger');
       element.click(function() {
-
         $("#event-content").html(
           '<h5>' + event.title + '</h5>' +
           '<p>' + moment(event.start).format('MMM Do h:mm A') + '</p>'
@@ -66,7 +72,6 @@ $(document).ready(function() {
     },
 
     events: events,
-
     viewRender: function(view, element) {
       if (view.name.substr(0, 6) === 'agenda') {
         $(element).find('div.fc-slats table tr[data-time]').filter(function() {
@@ -80,36 +85,5 @@ $(document).ready(function() {
     }
 
   });
-
-
-  $('.ui-draggable').draggable({
-    // zIndex: 3000,
-    appendTo: 'body',
-    helper: "clone",
-    start: function(e, u) {
-      $(e.target).hide();
-    },
-    stop: function(e, u) {
-      $(e.target).show();
-    }
-  });
-
-  $('.fc-content-skeleton tr td').droppable({
-    accept: ".ui-draggable",
-    drop: function(e, u) {
-      var a = "<a class='fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable modal-trigger' href='#event-modal'><div class='fc-content'><span class='fc-time'>9a - 10a</span> <span class='fc-title'>Play Piano</span></div></a>";//u.helper.clone();
-      console.log(a)
-      var target = $( e.target );
-      if(target.is( "td" )) {
-        $(this).append(a);
-        console.log('yes');
-        console.log($(this).data('date'));
-
-      }
-
-      // $(this).find('tr').children('').append(a);
-      // $(a).attr('class', 'fc-event-container').draggable();
-    }
-  })
 
 });
