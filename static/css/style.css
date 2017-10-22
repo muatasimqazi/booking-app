@@ -1,5 +1,5 @@
 .tabs .indicator {
-  background-color: white !important;
+  background-color: rgb(177, 167, 204) !important;
 }
 
 .navbar-fixed {
@@ -46,4 +46,12 @@
   cursor: all-scroll;
   border: none;
   text-align: center;
+}
+#event-info-card .card-panel, .no-maring {
+  margin: 0px !important;
+  border-radius: 0px !important;
+}
+#event-info-card .modal, .small-modal .modal {
+  width: 30% !important;
+  max-height: 100% !important;
 }
