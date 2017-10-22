@@ -1,48 +1,15 @@
 .tabs .indicator {
   background-color: white !important;
 }
-
 .navbar-fixed {
-  z-index: 999;
+   z-index: 999;
 }
-
 .picker__box {
   border: none !important;
 }
-
 .no-uppercase {
   text-transform: capitalize;
 }
-
 .no-border {
   border: none !important;
-}
-
-#calendar .fc-day-header {
-  text-transform: uppercase;
-  font-weight: 400;
-}
-
-#calendar h2 {
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  line-height: 35px;
-}
-
-.fc td, .fc th {
-  border-width: 0 !important;
-}
-
-.fc-unthemed td.fc-today {
-  background: none !important;
-  border-top: 3px solid red !important;
-}
-
-#external-events .fc-event {
-  color: #fff;
-  text-decoration: none;
-  padding: 5px;
-  margin-bottom: 10px;
-  cursor: all-scroll;
-  border: none;
 }
