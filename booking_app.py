@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
-import quickstart
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 import simplejson as json # for output formatting
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -18,6 +18,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True)
     address = db.Column(db.String(120))
     serviceType = db.Column(db.String(220))
+    events = db.relationship('Event', backref='owner')
 
     def __init__(self, firstName, lastName, email, address, serviceType):
         self.firstName = firstName
@@ -25,6 +26,21 @@ class User(db.Model):
         self.email = email
         self.address = address
         self.serviceType = serviceType
+
+# Event class
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120))
+    # start = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    start = db.Column(db.String(120))
+    end = db.Column(db.String(120))
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __init__(self, title, start, end, owner):
+        self.title = title
+        self.start = start
+        self.end = end
+        self.owner = owner
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -56,13 +72,37 @@ def signup():
         else:
             return render_template('signup.html', name_error="user already exists", user_name=username)
 
-@app.route("/")
-@app.route('/home')
+
+def create_event():
+    return null
+
+@app.route("/", methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 def index():
-    events = {"a": "aa"}#quickstart.main()
-    #print(json.dumps(events, indent=2))
-    # (events)
-    return render_template('index.html', events=events)
+
+    owner = User.query.filter_by(firstName='admin').first()
+    if request.method == 'POST':
+
+         event_title = request.form['event-title']
+         event_date = request.form['event-date']
+         event_start = event_date + 'T' + request.form['event-start']
+         event_end = event_date + 'T' + request.form['event-end']
+
+         event_new = Event(event_title, event_start, event_end, owner)
+         db.session.add(event_new)
+         db.session.commit()
+         event_id = event_new.id;
+
+    events = Event.query.filter_by(owner=owner).all()
+    event = []
+    for item in events:
+        event.append(toList(item))
+
+    return render_template('index.html', event=event)
+
+def toList(self):
+    strEvent = {'title': self.title, 'start': self.start, 'end': self.end }
+    return strEvent
 
 @app.route("/faq")
 def faq():
