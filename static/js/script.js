@@ -15,7 +15,8 @@ $(document).ready(function() {
     draggable: true, // Choose whether you can drag to open on touch screens,
   });
 
-  $(".ui-draggable").draggable();
+  // $(".ui-draggable").draggable();
+
 
   $('.timepicker').pickatime({
     default: 'now', // Set default time: 'now', '1:30AM', '16:30'
@@ -79,5 +80,36 @@ $(document).ready(function() {
     }
 
   });
+
+
+  $('.ui-draggable').draggable({
+    // zIndex: 3000,
+    appendTo: 'body',
+    helper: "clone",
+    start: function(e, u) {
+      $(e.target).hide();
+    },
+    stop: function(e, u) {
+      $(e.target).show();
+    }
+  });
+
+  $('.fc-content-skeleton tr td').droppable({
+    accept: ".ui-draggable",
+    drop: function(e, u) {
+      var a = "<a class='fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable modal-trigger' href='#event-modal'><div class='fc-content'><span class='fc-time'>9a - 10a</span> <span class='fc-title'>Play Piano</span></div></a>";//u.helper.clone();
+      console.log(a)
+      var target = $( e.target );
+      if(target.is( "td" )) {
+        $(this).append(a);
+        console.log('yes');
+        console.log($(this).data('date'));
+
+      }
+
+      // $(this).find('tr').children('').append(a);
+      // $(a).attr('class', 'fc-event-container').draggable();
+    }
+  })
 
 });

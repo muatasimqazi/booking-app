@@ -38,7 +38,7 @@
   border-top: 3px solid red !important;
 }
 
-#external-events .fc-event {
+.ui-draggable, .fc-event {
   color: #fff;
   text-decoration: none;
   padding: 5px;
