@@ -1,10 +1,3 @@
-var events;
-
-function my_script(e) {
-  events = e; // from the database
-  // console.log(events);
-}
-
 $(document).ready(function() {
   $('.modal').modal({
     opacity: .2,
@@ -54,7 +47,7 @@ $(document).ready(function() {
     eventConstraint: {
       // start: '09:00', // a start time (10am in this example)
       // end: '17:00', // an end time (5pm in this example)
-      // dow: [1, 2, 3, 4, 5]
+      dow: [1, 2, 3, 4, 5]
       // days of week. an array of zero-based day of week integers (0=Sunday)
       // (Monday-Thursday in this example)
     },
@@ -71,14 +64,21 @@ $(document).ready(function() {
       element.attr('href', '#event-info');
       element.addClass('modal-trigger');
       element.click(function() {
+        var moment1 = moment('2013-09-02');
+        var moment2 = moment('2013-09-09');
+        $.fullCalendar.formatRange(moment1, moment2, 'MM D YYYY');
         $('#event-info-title').text(event.title);
-        $('#event-info-date').text(event.start._d + ' – ' + event.end._d);
+        $('#event-info-date').html("<span class='black-text'>" + event.start.format('dddd, MMMM D') + '</span><br><small>' + event.start.format('h:mm a') + ' – ' + event.end.format('h:mm a') + '</small>');
         console.log(event);
         $('#event-info').modal('open');
       });
     },
 
-    // events: events,
+    events: {
+      url: $SCRIPT_ROOT + '/_get_events',
+      cache: true,
+
+    },
     viewRender: function(view, element) {
       if (view.name.substr(0, 6) === 'agenda') {
         $(element).find('div.fc-slats table tr[data-time]').filter(function() {
@@ -92,7 +92,4 @@ $(document).ready(function() {
     }
 
   });
-
-  $('#calendar').fullCalendar('addEventSource', events);
-
 });

@@ -79,7 +79,6 @@ def create_event():
 @app.route("/", methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
 def index():
-
     owner = User.query.filter_by(firstName='admin').first()
     if request.method == 'POST':
 
@@ -93,16 +92,21 @@ def index():
          db.session.commit()
          event_id = event_new.id;
 
-    events = Event.query.filter_by(owner=owner).all()
-    event = []
-    for item in events:
-        event.append(toList(item))
-
-    return render_template('index.html', event=event)
+    return render_template('index.html')
 
 def toList(self):
     strEvent = {'title': self.title, 'start': self.start, 'end': self.end }
     return strEvent
+
+@app.route('/_get_events', methods=['GET', 'POST'])
+def add_numbers():
+    owner = User.query.filter_by(firstName='admin').first()
+
+    events = Event.query.filter_by(owner=owner).all()
+    events_feed = []
+    for item in events:
+        events_feed.append(toList(item))
+    return jsonify(events_feed)
 
 @app.route("/faq")
 def faq():
