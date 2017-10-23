@@ -13,6 +13,8 @@ app.secret_key = 'xy337KGys&'
 class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(120), unique=True)
+    password = db.Column(db.String(120))
     firstName = db.Column(db.String(120))
     lastName = db.Column(db.String(120))
     email = db.Column(db.String(120), unique=True)
@@ -20,7 +22,9 @@ class User(db.Model):
     serviceType = db.Column(db.String(220))
     events = db.relationship('Event', backref='owner')
 
-    def __init__(self, firstName, lastName, email, address, serviceType):
+    def __init__(self, username, password, firstName, lastName, email, address, serviceType):
+        self.username = username
+        self.password = password
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
@@ -122,22 +126,34 @@ def about():
 @app.route("/form")
 def form():
     return render_template('form.html')
+
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if (request.method == 'GET'):
-        return render_template('login.html')
-    if (request.method == 'POST'):
+
+    if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        userobject = User.query.filter_by(username = username).first()
-        if userobject:
-            if userobject.password == password:
+        user = User.query.filter_by(username=username).first()
+
+        username_error = ''
+        password_error = ''
+        if user:
+            if user.password == password:
                 session['username'] = username
-                return redirect('/home')
-            else:
-                return render_template('login.html', pwd_error="wrong password", usernamevalue= username)
+                print(session['username'])
+                return redirect('/')
+
+            if user.password != password :
+                password_error = 'Incorrect password'
+
         else:
-            return render_template('login.html', uname_error="user doesn't exist", usernamevalue= username)
+            username_error = "This username does not exist"
+
+        return render_template('login.html', username_error=username_error, password_error=password_error)
+
+    return render_template('login.html')
 @app.route('/logout', methods=['GET'])
 def logout():
     del session['username']
