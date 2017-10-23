@@ -107,7 +107,7 @@ def create_event():
     return redirect('/')
 
 def toList(self):
-    event = {'id': self.id, 'title': self.title, 'start': self.start, 'end': self.end, 'color': 'purple' }
+    event = {'id': self.id, 'title': self.title, 'start': self.start, 'end': self.end, 'color': 'purple', 'className': '' }
     return event
 
 # shows the user's booking schedule
