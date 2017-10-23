@@ -18,6 +18,7 @@
           </div>
           {% else %}
           <div class="col s12 center">
+            <h5>Welcom {{user.firstName}} {{user.lastName}}</h5>
           <a class="waves-effect waves-light teal btn modal-trigger z-depth-0 no-uppercase" href="{{ url_for('logout') }}">Log Out</a>
         </div>
           {% endif %}
@@ -38,7 +39,6 @@
     </div>
 
   </div>
-
   <div class="col s9 m9 l9 right">
     <div class="card-panel">
       {% include "calendar.html" %}

@@ -70,6 +70,8 @@ $(document).ready(function() {
         $('#event-info-title').text(event.title);
         $('#event-info-date').html("<span class='black-text'>" + event.start.format('dddd, MMMM D') + '</span><br><small>' + event.start.format('h:mm a') + ' – ' + event.end.format('h:mm a') + '</small>');
         console.log(event);
+        // $('#event-delete').data('event-id', event.id)
+        $('#event-delete').val(event.id)
         $('#event-info').modal('open');
       });
     },
@@ -92,4 +94,5 @@ $(document).ready(function() {
     }
 
   });
+
 });

@@ -31,11 +31,10 @@ class User(db.Model):
         self.address = address
         self.serviceType = serviceType
 
-# Event class
+# event class
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
-    # start = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     start = db.Column(db.String(120))
     end = db.Column(db.String(120))
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -76,41 +75,59 @@ def signup():
         else:
             return render_template('signup.html', name_error="user already exists", user_name=username)
 
-
-def create_event():
-    return null
-
 @app.route("/", methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
 def index():
-    owner = User.query.filter_by(firstName='admin').first()
-    if request.method == 'POST':
 
-         event_title = request.form['event-title']
-         event_date = request.form['event-date']
-         event_start = event_date + 'T' + request.form['event-start']
-         event_end = event_date + 'T' + request.form['event-end']
+    if 'username' in session:
+        user = User.query.filter_by(username=session['username']).first()
+        if request.method == 'POST':
+            create_event()
 
-         event_new = Event(event_title, event_start, event_end, owner)
-         db.session.add(event_new)
-         db.session.commit()
-         event_id = event_new.id;
+        if request.method == 'GET' and request.args.get('id'):
+            event_id = request.args.get('id')
+            del_event(event_id)
 
+        return render_template('index.html', user=user)
     return render_template('index.html')
 
-def toList(self):
-    strEvent = {'title': self.title, 'start': self.start, 'end': self.end }
-    return strEvent
+# creates event / booking
+def create_event():
+    username = session['username']
+    owner = User.query.filter_by(username=username).first()
+    event_title = request.form['event-title']
+    event_date = request.form['event-date']
+    event_start = event_date + 'T' + request.form['event-start']
+    event_end = event_date + 'T' + request.form['event-end']
 
+    event_new = Event(event_title, event_start, event_end, owner)
+    db.session.add(event_new)
+    db.session.commit()
+    event_id = event_new.id;
+    return redirect('/')
+
+def toList(self):
+    event = {'id': self.id, 'title': self.title, 'start': self.start, 'end': self.end, 'color': 'purple' }
+    return event
+
+# shows the user's booking schedule
 @app.route('/_get_events', methods=['GET', 'POST'])
-def add_numbers():
-    owner = User.query.filter_by(firstName='admin').first()
+def get_events():
+    username = session['username']
+    owner = User.query.filter_by(username=username).first()
 
     events = Event.query.filter_by(owner=owner).all()
     events_feed = []
     for item in events:
         events_feed.append(toList(item))
     return jsonify(events_feed)
+
+# deletes a booked appointment
+def del_event(event_id):
+    delete_event = Event.query.filter_by(id=event_id).first();
+    db.session.delete(delete_event)
+    db.session.commit();
+    return redirect('/home')
 
 @app.route("/faq")
 def faq():
@@ -123,9 +140,6 @@ def contact():
 @app.route("/about")
 def about():
     return render_template('about.html')
-@app.route("/form")
-def form():
-    return render_template('form.html')
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
