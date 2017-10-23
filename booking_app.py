@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
-import simplejson as json # for output formatting
+import json # for output formatting
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://booking_app:1234@localhost:8889/booking_app'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://booking_app:booking@localhost:8889/booking_app'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'xy337KGys&'
@@ -52,28 +52,33 @@ def page_not_found(e):
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
     if (request.method == 'GET'):
-        return render_template('signup.html')
+        return redirect('/')
     if (request.method == 'POST'):
-        username = request.form['firstname']
+        username = request.form['username']
+        firstname = request.form['firstname']
         password = request.form['password']
+        lastname = request.form['lastname']
         verifypassword = request.form['verifypassword']
+        email = request.form['email']
+        address = request.form['address']
+        serviceType = request.form['servicetype']
         if (len(username) < 3):
-            return render_template('signup.html', name_error="user field is empty or too short", first_name=username)
+            return render_template('index.html', name_error="user field is empty or too short", first_name=username)
         if (len(password) < 3):
-            return render_template('signup.html', pwd_error="password field is empty or too short", first_name=username)
+            return render_template('index.html', pwd_error="password field is empty or too short", first_name=username)
         if (len(verifypassword) == 0):
-            return render_template('signup.html', vpwd_error="verify password field is blank", first_name=username)
+            return render_template('index.html', vpwd_error="verify password field is blank", first_name=username)
         if (password != verifypassword):
-            return render_template('signup.html', vpwd_error="passwords don't match", first_name=username)
+            return render_template('index.html', vpwd_error="passwords don't match", first_name=username)
         exisiting_user = User.query.filter_by(username = username).first()
         if not exisiting_user:
-            new_user = User(username,password)
+            new_user = User(username, password, firstname, lastname, email, address, serviceType)
             db.session.add(new_user)
             db.session.commit()
             session['username'] = username
-            return redirect('/login')
+            return redirect('/')
         else:
-            return render_template('signup.html', name_error="user already exists", user_name=username)
+            return render_template('index.html', name_error="user already exists", user_name=username)
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
@@ -92,6 +97,7 @@ def index():
     return render_template('index.html')
 
 # creates event / booking
+@app.route('/createevent', methods=['POST'])
 def create_event():
     username = session['username']
     owner = User.query.filter_by(username=username).first()

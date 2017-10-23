@@ -9,9 +9,21 @@
         <form class="col s12" action="/signup" method='post'>
           <div class="input-field">
             <i class="material-icons prefix">account_circle</i>
+            <input name ="username" id="icon_prefix" type="text" class="validate" value="{{first_name}}">
+            <label for="icon_username">user Name</label>
+            <div class="error">{{username_error}}</div>
+          </div>
+          <div class="input-field">
+            <i class="material-icons prefix">account_circle</i>
             <input name ="firstname" id="icon_prefix" type="text" class="validate" value="{{first_name}}">
             <label for="icon_prefix">First Name</label>
             <div class="error">{{name_error}}</div>
+          </div>
+          <div class="input-field">
+            <i class="material-icons prefix">account_circle</i>
+            <input name ="lastname" id="icon_lastname" type="text" class="validate">
+            <label for="icon_lastname">Lastname</label>
+            <div class="error">{{lastname_error}}</div>
           </div>
           <div class="input-field">
             <i class="material-icons prefix">account_circle</i>
@@ -24,6 +36,24 @@
             <input name="verifypassword"  id="icon_verifypassword" type="password" class="validate">
             <label for="icon_verifypassword">Verify Password</label>
             <div class="error">{{vpwd_error}}</div>
+          </div>
+          <div class="input-field">
+            <i class="material-icons prefix">account_circle</i>
+            <input name ="email" id="icon_email" type="text" class="validate">
+            <label for="icon_email">email</label>
+            <div class="error">{{email_error}}</div>
+          </div>
+          <div class="input-field">
+            <i class="material-icons prefix">account_circle</i>
+            <input name ="address" id="icon_address" type="text" class="validate">
+            <label for="icon_address">Address</label>
+            <div class="error">{{address_error}}</div>
+          </div>
+          <div class="input-field">
+            <i class="material-icons prefix">account_circle</i>
+            <input name ="servicetype" id="icon_servicetype" type="text" class="validate">
+            <label for="icon_servicetype">Servicetype</label>
+            <div class="error">{{email_address}}</div>
           </div>
           <input type = "submit" value = "Submit">
         </form>
