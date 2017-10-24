@@ -37,6 +37,7 @@ class Event(db.Model):
     title = db.Column(db.String(120))
     start = db.Column(db.String(120))
     end = db.Column(db.String(120))
+    description = db.Column(db.String(120))
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __init__(self, title, start, end, owner):
@@ -44,6 +45,31 @@ class Event(db.Model):
         self.start = start
         self.end = end
         self.owner = owner
+
+# customer
+class Customer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    firstName = db.Column(db.String(120), nullable=False)
+    lastName = db.Column(db.String(120))
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    phoneNumber = db.Column(db.String(120), nullable=False)
+    address = db.Column(db.String(120))
+    zipCode = db.Column(db.Integer(5))
+    city = db.Column(db.Sting(100))
+    state = db.Colum(db.String(100))
+    event = db.relationship('Event', backref='owner')
+
+    def __init__(self, firstName, lastName, email, phoneNumber, address, zipCode, city, state):
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+        self.phoneNumber = phoneNumber
+        self.address = address
+        self.zipCode = zipCode
+        self.city = city
+        self.state = state
+
+
 
 @app.errorhandler(404)
 def page_not_found(e):
