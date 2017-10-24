@@ -5,7 +5,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://booking_app:booking@localhost:8889/booking_app'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://booking_app:1234@localhost:8889/booking_app'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'xy337KGys&'
@@ -37,13 +37,40 @@ class Event(db.Model):
     title = db.Column(db.String(120))
     start = db.Column(db.String(120))
     end = db.Column(db.String(120))
+    description = db.Column(db.String(120))
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, title, start, end, owner):
+    def __init__(self, title, start, end, description, owner):
         self.title = title
         self.start = start
         self.end = end
+        self.description = description
         self.owner = owner
+
+# customer
+class Customer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    firstName = db.Column(db.String(120), nullable=False)
+    lastName = db.Column(db.String(120))
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    phoneNumber = db.Column(db.String(120), nullable=False)
+    address = db.Column(db.String(120))
+    zipCode = db.Column(db.Integer)
+    city = db.Column(db.String(120))
+    state = db.Column(db.String(120))
+    # event = db.relationship('Event', backref='owner')
+
+    def __init__(self, firstName, lastName, email, phoneNumber, address, zipCode, city, state):
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+        self.phoneNumber = phoneNumber
+        self.address = address
+        self.zipCode = zipCode
+        self.city = city
+        self.state = state
+
+
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -105,8 +132,9 @@ def create_event():
     event_date = request.form['event-date']
     event_start = event_date + 'T' + request.form['event-start']
     event_end = event_date + 'T' + request.form['event-end']
+    event_description = "abc"
 
-    event_new = Event(event_title, event_start, event_end, owner)
+    event_new = Event(event_title, event_start, event_end, event_description, owner)
     db.session.add(event_new)
     db.session.commit()
     event_id = event_new.id;
@@ -133,7 +161,7 @@ def del_event(event_id):
     delete_event = Event.query.filter_by(id=event_id).first();
     db.session.delete(delete_event)
     db.session.commit();
-    return redirect('/home')
+    return render_template('index.html')
 
 @app.route("/faq")
 def faq():
