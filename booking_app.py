@@ -40,10 +40,11 @@ class Event(db.Model):
     description = db.Column(db.String(120))
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, title, start, end, owner):
+    def __init__(self, title, start, end, description, owner):
         self.title = title
         self.start = start
         self.end = end
+        self.description = description
         self.owner = owner
 
 # customer
@@ -54,10 +55,10 @@ class Customer(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     phoneNumber = db.Column(db.String(120), nullable=False)
     address = db.Column(db.String(120))
-    zipCode = db.Column(db.Integer(5))
-    city = db.Column(db.Sting(100))
-    state = db.Colum(db.String(100))
-    event = db.relationship('Event', backref='owner')
+    zipCode = db.Column(db.Integer)
+    city = db.Column(db.String(120))
+    state = db.Column(db.String(120))
+    # event = db.relationship('Event', backref='owner')
 
     def __init__(self, firstName, lastName, email, phoneNumber, address, zipCode, city, state):
         self.firstName = firstName
@@ -131,8 +132,9 @@ def create_event():
     event_date = request.form['event-date']
     event_start = event_date + 'T' + request.form['event-start']
     event_end = event_date + 'T' + request.form['event-end']
+    event_description = "abc"
 
-    event_new = Event(event_title, event_start, event_end, owner)
+    event_new = Event(event_title, event_start, event_end, event_description, owner)
     db.session.add(event_new)
     db.session.commit()
     event_id = event_new.id;
@@ -159,7 +161,7 @@ def del_event(event_id):
     delete_event = Event.query.filter_by(id=event_id).first();
     db.session.delete(delete_event)
     db.session.commit();
-    return redirect('/home')
+    return render_template('index.html')
 
 @app.route("/faq")
 def faq():
