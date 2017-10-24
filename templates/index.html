@@ -8,12 +8,20 @@
         <div class="divider"></div>
         <br>
         <div class="row">
-          <div class="col s6">
+
+           {% if not session.username %}
+           <div class="col s6">
             <a class="waves-effect waves-light red btn modal-trigger z-depth-0 no-uppercase" href="#login">Login</a>
           </div>
           <div class="col s6">
             <a class="waves-effect waves-light teal btn modal-trigger z-depth-0 no-uppercase" href="#signup">Sign up</a>
           </div>
+          {% else %}
+          <div class="col s12 center">
+            <h5>Welcom {{user.firstName}} {{user.lastName}}</h5>
+          <a class="waves-effect waves-light teal btn modal-trigger z-depth-0 no-uppercase" href="{{ url_for('logout') }}">Log Out</a>
+        </div>
+          {% endif %}
         </div>
       </div>
 
@@ -31,8 +39,6 @@
     </div>
 
   </div>
-  <span class="test-event" data-event="{{event}}"></span>
-
   <div class="col s9 m9 l9 right">
     <div class="card-panel">
       {% include "calendar.html" %}

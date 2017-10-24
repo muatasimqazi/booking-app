@@ -6,16 +6,18 @@
     <p>Please select a time slot for your next appointment.</p>
 
     <div class="row">
-      <form method="post" class="col s12">
+      <form method="post" class="col s12" action="/createevent">
         <div class="input-field">
+          <i class="material-icons prefix">event</i>
           <input id="event_title" name="event-title" type="text" class="validate">
           <label for="event_title">Service Name</label>
         </div>
         <div class="row">
-          <div class="input-field col s4">
-            <input id="event-date" name="event-date" type="date" class="validate">
+          <div class="input-field col s6 no-padding">
+            <i class="material-icons prefix">access_time</i>
+            <input id="event-date" name="event-date" type="date" class="validate" value="">
           </div>
-          <div class="input-field col s4">
+          <div class="input-field col s3">
             <select id="event-start" name="event-start">
                 <option value="09:00">9:00am</option>
                 <option value="10:00">10:00am</option>
@@ -23,7 +25,7 @@
               </select>
             <label>Start Time</label>
           </div>
-          <div class="input-field col s4">
+          <div class="input-field col s3">
             <select id="event-end" name="event-end">
               <option value="09:00">9:00am</option>
               <option value="10:00">10:00am</option>
@@ -34,6 +36,7 @@
         </div>
 
         <div class="input-field">
+          <i class="material-icons prefix">build</i>
           <input id="eq_type" placeholder="Furnace, Ac, Heatpump, ..." type="text" class="validate">
           <label for="eq_type">Equipment Type:</label>
         </div>
@@ -57,6 +60,7 @@
       <input name="group1" type="radio" id="test5" />
       <label for="test5">Fire Place</label>
     </span>
+    <span><input id="event-ids" type="text" name="id"></span>
     </div>
     <br>
 

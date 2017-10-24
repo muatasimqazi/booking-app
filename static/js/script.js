@@ -1,12 +1,12 @@
-var events;
-
-function my_script(e) {
-  events = e; // from the database
-  console.log(events);
-}
-
 $(document).ready(function() {
-  $('.modal').modal();
+  $('.modal').modal({
+    opacity: .2,
+    background: 'red'
+  });
+  $('.modal').css({
+    'max-height': '100%',
+    'background': 'white'
+  });
   $('select').material_select();
   $('.button-collapse').sideNav({
     menuWidth: 300, // Default is 300
@@ -15,23 +15,22 @@ $(document).ready(function() {
     draggable: true, // Choose whether you can drag to open on touch screens,
   });
 
-  $(".ui-draggable").draggable();
 
-  $('.timepicker').pickatime({
-    default: 'now', // Set default time: 'now', '1:30AM', '16:30'
-    fromnow: 0, // set default time to * milliseconds from now (using with default = 'now')
-    twelvehour: false, // Use AM/PM or 24-hour format
-    donetext: 'OK', // text for done-button
-    cleartext: 'Clear', // text for clear-button
-    canceltext: 'Cancel', // Text for cancel-button
-    autoclose: false, // automatic close timepicker
-    ampmclickable: true, // make AM PM clickable
-    aftershow: function() {} //Function for after opening timepicker
+  $('#external-events .fc-event').each(function() {
+    $(this).data('event', {
+      title: $.trim($(this).text()),
+      stick: true,
+      overlap: false
+    });
+
+    $(this).draggable({
+      zIndex: 999,
+      revert: true,
+      revertDuration: 0
+    });
   });
 
-
   $('#calendar').fullCalendar({
-    // put your options and callbacks here
     weekends: false, // will hide Saturdays and Sundays
     defaultView: 'month',
     header: {
@@ -44,28 +43,44 @@ $(document).ready(function() {
     editable: true,
     eventStartEditable: true,
     eventOverlap: false,
+    backgroundColor: 'blue',
     eventConstraint: {
-      start: '09:00', // a start time (10am in this example)
-      end: '15:00', // an end time (5pm in this example)
+      // start: '09:00', // a start time (10am in this example)
+      // end: '17:00', // an end time (5pm in this example)
       dow: [1, 2, 3, 4, 5]
       // days of week. an array of zero-based day of week integers (0=Sunday)
       // (Monday-Thursday in this example)
     },
+    droppable: true,
+    drop: function(date, e, ui, resourceId) {
+      console.log(resourceId.start);
+      $('#new-event').modal('open');
+      $('#event_title').val(e.target.textContent);
+      $("label[for='event_title']").empty();
+      $('#event-date').val(date.format());
+    },
 
     eventRender: function(event, element) {
-      element.attr('href', '#event-modal');
+      element.attr('href', '#event-info');
       element.addClass('modal-trigger');
       element.click(function() {
+        var moment1 = moment('2013-09-02');
+        var moment2 = moment('2013-09-09');
+        $.fullCalendar.formatRange(moment1, moment2, 'MM D YYYY');
+        $('#event-info-title').text(event.title);
+        $('#event-info-date').html("<span class='black-text'>" + event.start.format('dddd, MMMM D') + '</span><br><small>' + event.start.format('h:mm a') + ' – ' + event.end.format('h:mm a') + '</small>');
+        console.log(event);
 
-        $("#event-content").html(
-          '<h5>' + event.title + '</h5>' +
-          '<p>' + moment(event.start).format('MMM Do h:mm A') + '</p>'
-        );
+        $('#event-delete').val(event.id);
+        $('#event-info').modal('open');
       });
     },
 
-    events: events,
+    events: {
+      url: $SCRIPT_ROOT + '/_get_events',
+      cache: true,
 
+    },
     viewRender: function(view, element) {
       if (view.name.substr(0, 6) === 'agenda') {
         $(element).find('div.fc-slats table tr[data-time]').filter(function() {
