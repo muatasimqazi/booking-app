@@ -58,7 +58,7 @@ class Customer(db.Model):
     zipCode = db.Column(db.Integer)
     city = db.Column(db.String(120))
     state = db.Column(db.String(120))
-    # event = db.relationship('Event', backref='owner')
+    #event = db.relationship('Event', backref='owner')
 
     def __init__(self, firstName, lastName, email, phoneNumber, address, zipCode, city, state):
         self.firstName = firstName
