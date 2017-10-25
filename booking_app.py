@@ -77,12 +77,12 @@ class Equipment(db.Model):
     model = db.Column(db.String(120))
     filterSize = db.Column(db.Integer)
      
-    def__init__(self, brand, serial, model,filterSize):
+    def __init__(self, brand, serial, model, filterSize):
         self.brand = brand
         self.serial = serial
         self.model = model
         self.filterSize = filterSize
-        
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html', ), 404
