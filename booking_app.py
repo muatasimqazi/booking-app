@@ -70,7 +70,18 @@ class Customer(db.Model):
         self.city = city
         self.state = state
 
-
+class Equipment(db.Model):
+    id = db.Column(db.Integer, primary_key= True)
+    brand = db.Column(db.String(120))
+    serial = db.Column(db.String(120))
+    model = db.Column(db.String(120))
+    filterSize = db.Column(db.Integer)
+     
+    def __init__(self, brand, serial, model, filterSize):
+        self.brand = brand
+        self.serial = serial
+        self.model = model
+        self.filterSize = filterSize
 
 @app.errorhandler(404)
 def page_not_found(e):
