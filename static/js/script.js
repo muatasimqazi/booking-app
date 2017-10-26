@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  $('.parallax').parallax();
   $('.modal').modal({
     opacity: .2,
     background: 'red'

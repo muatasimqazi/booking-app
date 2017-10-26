@@ -58,3 +58,7 @@
   width: 30% !important;
   max-height: 100% !important;
 }
+.parallax h1, .parallax h5 {
+  position: relative;
+  margin: 10px;
+}
