@@ -29,10 +29,13 @@
   line-height: 35px;
 }
 
-.fc td, .fc th {
-  border-width: 0 !important;
-}
+.fc td, .fc th, {
+  border-top-width: 0 !important;
 
+}
+.fc-content-skeleton thead, .fc-bg {
+  border-bottom: none !important;
+}
 .fc-unthemed td.fc-today {
   background: none !important;
   border-top: 3px solid red !important;

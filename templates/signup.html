@@ -1,49 +1,53 @@
 {% block content %}
 <div class="small-modal">
-<div id="signup" class="modal">
-  <div class="modal-content">
-<div class="container">
-  <div class="card">
-    <div class="card-content">
+  <div id="signup" class="modal">
+    <div class="modal-content">
+
       <div class="row">
         <form class="col s12" action="/signup" method='post'>
           <div class="input-field">
             <i class="material-icons prefix">account_circle</i>
-            <input name ="username" id="icon_prefix" type="text" class="validate" value="{{first_name}}">
+            <input name="username" id="icon_prefix" type="text" class="validate" value="{{first_name}}">
             <label for="icon_username">user Name</label>
             <div class="error">{{username_error}}</div>
           </div>
           <div class="input-field">
             <i class="material-icons prefix">account_circle</i>
-            <input name ="firstname" id="icon_prefix" type="text" class="validate" value="{{first_name}}">
+            <input name="first-name" id="icon_prefix" type="text" class="validate" value="{{first_name}}">
             <label for="icon_prefix">First Name</label>
             <div class="error">{{name_error}}</div>
           </div>
           <div class="input-field">
             <i class="material-icons prefix">account_circle</i>
-            <input name ="lastname" id="icon_lastname" type="text" class="validate">
+            <input name="last-name" id="icon_lastname" type="text" class="validate">
             <label for="icon_lastname">Lastname</label>
             <div class="error">{{lastname_error}}</div>
           </div>
           <div class="input-field">
             <i class="material-icons prefix">account_circle</i>
-            <input name ="password" id="icon_password" type="password" class="validate">
+            <input name="password" id="icon_password" type="password" class="validate">
             <label for="icon_password">Password</label>
             <div class="error">{{pwd_error}}</div>
           </div>
           <div class="input-field">
             <i class="material-icons prefix">account_circle</i>
-            <input name="verifypassword"  id="icon_verifypassword" type="password" class="validate">
+            <input name="verify-password" id="icon_verifypassword" type="password" class="validate">
             <label for="icon_verifypassword">Verify Password</label>
             <div class="error">{{vpwd_error}}</div>
           </div>
           <div class="input-field">
             <i class="material-icons prefix">account_circle</i>
-            <input name ="email" id="icon_email" type="text" class="validate">
+            <input name="email" id="icon_email" type="text" class="validate">
             <label for="icon_email">email</label>
             <div class="error">{{email_error}}</div>
           </div>
-          <input type = "submit" value = "Submit">
+          <div class="input-field">
+            <i class="material-icons prefix">account_circle</i>
+            <input name="address" id="icon_email" type="text" class="validate">
+            <label for="icon_email">address</label>
+            <div class="error">{{email_error}}</div>
+          </div>
+          <input type="submit" value="Submit">
         </form>
       </div>
     </div>
@@ -52,8 +56,6 @@
     </div>
   </div>
 </div>
-</div>
-</div>
-</div>
+
 
 {% endblock %}
