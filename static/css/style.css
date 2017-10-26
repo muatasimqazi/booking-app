@@ -37,18 +37,20 @@
   border-bottom: none !important;
 }
 .fc-unthemed td.fc-today {
-  background: none !important;
+  /*background: none !important;*/
   border-top: 3px solid red !important;
 }
 
-#external-events .fc-event {
-  color: #fff;
+#external-events .fc-event-ext {
+ /*color: #fff;*/
   text-decoration: none;
-  padding: 5px;
+  /*padding: 5px;*/
   margin-bottom: 10px;
-  cursor: all-scroll;
+  /*cursor: all-scroll;*/
   border: none;
   text-align: center;
+  width: 200px !important;
+  display: block !important;
 }
 #event-info-card .card-panel, .no-maring {
   margin: 0px !important;

@@ -17,7 +17,7 @@ $(document).ready(function() {
   });
 
 
-  $('#external-events .fc-event').each(function() {
+  $('#external-events .fc-event-ext').each(function() {
     $(this).data('event', {
       title: $.trim($(this).text()),
       stick: true,
