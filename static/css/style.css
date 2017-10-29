@@ -27,23 +27,28 @@
   line-height: 35px;
 }
 
-.fc td, .fc th {
-  border-width: 0 !important;
-}
+.fc td, .fc th, {
+  border-top-width: 0 !important;
 
+}
+.fc-content-skeleton thead, .fc-bg {
+  border-bottom: none !important;
+}
 .fc-unthemed td.fc-today {
-  background: none !important;
+  /*background: none !important;*/
   border-top: 3px solid red !important;
 }
 
-#external-events .fc-event {
-  color: #fff;
+#external-events .fc-event-ext {
+ /*color: #fff;*/
   text-decoration: none;
-  padding: 5px;
+  /*padding: 5px;*/
   margin-bottom: 10px;
-  cursor: all-scroll;
+  /*cursor: all-scroll;*/
   border: none;
   text-align: center;
+  width: 200px !important;
+  display: block !important;
 }
 #event-info-card .card-panel, .no-maring {
   margin: 0px !important;
@@ -53,4 +58,11 @@
   width: 30% !important;
   max-height: 100% !important;
 }
+<<<<<<< HEAD
 >>>>>>> eb328729280d3dfdcfdd97f5aee3a2b0372644d6
+=======
+.parallax h1, .parallax h5 {
+  position: relative;
+  margin: 10px;
+}
+>>>>>>> 8a9e278c7257440aeaeddf2411162defa6f1139a

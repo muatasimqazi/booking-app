@@ -15,21 +15,20 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(120))
-    firstName = db.Column(db.String(120))
-    lastName = db.Column(db.String(120))
+    first_name = db.Column(db.String(120))
+    last_name = db.Column(db.String(120))
     email = db.Column(db.String(120), unique=True)
     address = db.Column(db.String(120))
-    serviceType = db.Column(db.String(220))
     events = db.relationship('Event', backref='owner')
 
-    def __init__(self, username, password, firstName, lastName, email, address, serviceType):
+    def __init__(self, username, password, first_name, last_name, email, address):
         self.username = username
         self.password = password
-        self.firstName = firstName
-        self.lastName = lastName
+        self.first_name = first_name
+        self.last_name = last_name
         self.email = email
         self.address = address
-        self.serviceType = serviceType
+
 
 # event class
 class Event(db.Model):
@@ -50,23 +49,23 @@ class Event(db.Model):
 # customer
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    firstName = db.Column(db.String(120), nullable=False)
-    lastName = db.Column(db.String(120))
+    first_name = db.Column(db.String(120), nullable=False)
+    last_name = db.Column(db.String(120))
     email = db.Column(db.String(120), unique=True, nullable=False)
-    phoneNumber = db.Column(db.String(120), nullable=False)
+    phone_number = db.Column(db.String(120), nullable=False)
     address = db.Column(db.String(120))
-    zipCode = db.Column(db.Integer)
+    zip_code = db.Column(db.Integer)
     city = db.Column(db.String(120))
     state = db.Column(db.String(120))
     #event = db.relationship('Event', backref='owner')
 
-    def __init__(self, firstName, lastName, email, phoneNumber, address, zipCode, city, state):
-        self.firstName = firstName
-        self.lastName = lastName
+    def __init__(self, first_name, last_name, email, phone_number, address, zip_code, city, state):
+        self.first_name = first_name
+        self.last_name = last_name
         self.email = email
-        self.phoneNumber = phoneNumber
+        self.phone_number = phone_number
         self.address = address
-        self.zipCode = zipCode
+        self.zip_code = zip_code
         self.city = city
         self.state = state
 
@@ -76,7 +75,7 @@ class Equipment(db.Model):
     serial = db.Column(db.String(120))
     model = db.Column(db.String(120))
     filterSize = db.Column(db.Integer)
-     
+
     def __init__(self, brand, serial, model, filterSize):
         self.brand = brand
         self.serial = serial
@@ -93,24 +92,16 @@ def signup():
         return redirect('/')
     if (request.method == 'POST'):
         username = request.form['username']
-        firstname = request.form['firstname']
+        first_name = request.form['first-name']
         password = request.form['password']
-        lastname = request.form['lastname']
-        verifypassword = request.form['verifypassword']
+        last_name = request.form['last-name']
+        verify_password = request.form['verify-password']
         email = request.form['email']
         address = request.form['address']
-        serviceType = request.form['servicetype']
-        if (len(username) < 3):
-            return render_template('index.html', name_error="user field is empty or too short", first_name=username)
-        if (len(password) < 3):
-            return render_template('index.html', pwd_error="password field is empty or too short", first_name=username)
-        if (len(verifypassword) == 0):
-            return render_template('index.html', vpwd_error="verify password field is blank", first_name=username)
-        if (password != verifypassword):
-            return render_template('index.html', vpwd_error="passwords don't match", first_name=username)
+
         exisiting_user = User.query.filter_by(username = username).first()
         if not exisiting_user:
-            new_user = User(username, password, firstname, lastname, email, address, serviceType)
+            new_user = User(username, password, first_name, last_name, email, address)
             db.session.add(new_user)
             db.session.commit()
             session['username'] = username
@@ -159,8 +150,10 @@ def toList(self):
 @app.route('/_get_events', methods=['GET', 'POST'])
 def get_events():
     username = session['username']
-    owner = User.query.filter_by(username=username).first()
+    if not username:
+        pass
 
+    owner = User.query.filter_by(username=username).first()
     events = Event.query.filter_by(owner=owner).all()
     events_feed = []
     for item in events:
@@ -172,7 +165,7 @@ def del_event(event_id):
     delete_event = Event.query.filter_by(id=event_id).first();
     db.session.delete(delete_event)
     db.session.commit();
-    return render_template('index.html')
+
 
 @app.route("/faq")
 def faq():
