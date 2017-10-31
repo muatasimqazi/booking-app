@@ -18,11 +18,11 @@
         </div>
         <ul class="right hide-on-med-and-down">
           {% if not session.username %}
-          <li> <a class="waves-effect waves-light orange darken-4 btn modal-trigger z-depth-0 no-uppercase" href="#signup">Sign up</a></li>
-          <li><a class="waves-effect waves-light yellow darken-2 btn modal-trigger z-depth-0 no-uppercase" href="#login">Login</a></li>
+          <li><a class="waves-effect waves-light modal-trigger z-depth-0 no-uppercase" href="#signup"><i class="material-icons valign">account_box</i> Sign up</a></li>
+          <li><a class="waves-effect waves-light modal-trigger z-depth-0 no-uppercase" href="#login"><i class="material-icons small valign">account_circle</i> Login</a></li>
 
           {% else %}
-          <li><a class="waves-effect waves-light yellow darken-2 btn modal-trigger z-depth-0 no-uppercase" href="{{ url_for('logout') }}">Log Out</a></li>
+          <li><a class="waves-effect waves-light modal-trigger z-depth-0 no-uppercase" href="{{ url_for('logout') }}"><i class="material-icons small valign">account_circle</i> Log Out</a></li>
           {% endif %}
         </ul>
         <div>
