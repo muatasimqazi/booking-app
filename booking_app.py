@@ -2,8 +2,24 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import json # for output formatting
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask.ext.mail import Mail, Message
 
 app = Flask(__name__)
+
+mail=Mail(app)
+app.config.update(
+	DEBUG=True,
+	#EMAIL SETTINGS
+	MAIL_SERVER='smtp.gmail.com',
+	MAIL_PORT=465,
+	MAIL_USE_SSL=True,
+# NOTE: add your email address and password below
+	MAIL_USERNAME = 'your_email@gmail.com',
+	MAIL_PASSWORD = 'your_password'
+	)
+
+mail=Mail(app)
+
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://booking_app:1234@localhost:8889/booking_app'
 app.config['SQLALCHEMY_ECHO'] = True
@@ -99,6 +115,13 @@ def signup():
         email = request.form['email']
         address = request.form['address']
 
+        subject = request.form.get('username')
+        useraddress = request.form.get('address')
+# NOTE: Change the email address for sender and recipients
+        msg = Message(subject,sender='your_email@gmail.com',recipients=['recipients_email@live.com'])
+        msg.body = useraddress
+        mail.send(msg)
+
         exisiting_user = User.query.filter_by(username = username).first()
         if not exisiting_user:
             new_user = User(username, password, first_name, last_name, email, address)
@@ -140,6 +163,8 @@ def create_event():
     db.session.add(event_new)
     db.session.commit()
     event_id = event_new.id;
+
+
     return redirect('/')
 
 def toList(self):
