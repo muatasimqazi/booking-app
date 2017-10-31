@@ -54,15 +54,49 @@
   margin: 0px !important;
   border-radius: 0px !important;
 }
-#event-info-card .modal, .small-modal .modal {
-  width: 30% !important;
+#event-info-card .modal, .small-modal, .small-modal .modal {
+  width: 38% !important;
   max-height: 100% !important;
 }
-<<<<<<< HEAD
->>>>>>> eb328729280d3dfdcfdd97f5aee3a2b0372644d6
-=======
-.parallax h1, .parallax h5 {
+.small-modal .modal {
+  width: 30% !important;
+}
+
+.parallax h3, .parallax h5 {
   position: relative;
   margin: 10px;
+  color: #626d71 !important;
 }
->>>>>>> 8a9e278c7257440aeaeddf2411162defa6f1139a
+.navbar .material-icons {
+  display: inline;
+  vertical-align: bottom;
+}
+.parallax-container .parallax {
+  z-index: 1;
+
+}
+
+.slate {
+  background: #626d71 !important;
+}
+.slate-text {
+  color: #626d71 !important;
+}
+.ceramic {
+  background: #cdcdc0 !important;
+}
+.ceramic-text {
+  color: #cdcdc0 !important;
+}
+.latte {
+  background: #ddbb93 !important;
+}
+.latte-text {
+  color: #ddbb93 !important;
+}
+.coffee {
+  background: #b38766 !important;
+}
+.coffee-text {
+  color: #b38766 !important;
+}
