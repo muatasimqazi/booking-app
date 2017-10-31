@@ -82,6 +82,7 @@ $(document).ready(function() {
       cache: true,
 
     },
+
     viewRender: function(view, element) {
       if (view.name.substr(0, 6) === 'agenda') {
         $(element).find('div.fc-slats table tr[data-time]').filter(function() {
@@ -92,6 +93,13 @@ $(document).ready(function() {
           $(this).hide(); /* hide the rows */
         });
       }
+    },
+    // Triggered when the user clicks on a day.
+    dayClick: function(date, e, view) {
+      $('#event_title').val(e.target.textContent);
+      $("label[for='event_title']").empty();
+      $('#event-date').val(date.format());
+      $('#new-event').modal('open');
     }
 
   });
