@@ -1,8 +1,8 @@
 <div class="navbar navbar-fixed">
   <nav>
-    <div class="nav-wrapper purple darken-4">
+    <div class="nav-wrapper white black-text">
       <ul id="slide-out" class="side-nav">
-        <li><a href="{{url_for('index')}}">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="{{url_for('faq')}}">FAQ</a></li>
         <li><a href="{{url_for('contact')}}">Contact</a></li>
         <li><a href="{{url_for('about')}}">About</a></li>
@@ -11,18 +11,18 @@
       </ul>
       <div class="row">
         <div class="col s1">
-          <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+          <a href="#" data-activates="slide-out" class="button-collapse grey-text text-darken-2 show-on-large"><i class="material-icons">menu</i></a>
         </div>
         <div class="col s5">
-          <a href="{{url_for('index')}}" class="brand-logo white-text">Booking App</a>
+          <a href="/" class="brand-logo grey-text text-darken-2">Booking App</a>
         </div>
         <ul class="right hide-on-med-and-down">
           {% if not session.username %}
-          <li><a class="waves-effect waves-light modal-trigger z-depth-0 no-uppercase" href="#signup"><i class="material-icons valign">account_box</i> Sign up</a></li>
-          <li><a class="waves-effect waves-light modal-trigger z-depth-0 no-uppercase" href="#login"><i class="material-icons small valign">account_circle</i> Login</a></li>
+          <li><a class="waves-effect waves-light grey-text text-darken-2 modal-trigger z-depth-0 no-uppercase" href="#signup"><i class="material-icons valign coffee-text">person_add</i> Sign up</a></li>
+          <li><a class="waves-effect waves-light grey-text text-darken-2 modal-trigger z-depth-0 no-uppercase" href="#login"><i class="material-icons small valign latte-text">person</i> Login</a></li>
 
           {% else %}
-          <li><a class="waves-effect waves-light modal-trigger z-depth-0 no-uppercase" href="{{ url_for('logout') }}"><i class="material-icons small valign">account_circle</i> Log Out</a></li>
+          <li><a class="waves-effect waves-light grey-text text-darken-2 modal-trigger z-depth-0 no-uppercase" href="{{ url_for('logout') }}"><i class="material-icons small valign latte-text">person</i> Log Out</a></li>
           {% endif %}
         </ul>
         <div>

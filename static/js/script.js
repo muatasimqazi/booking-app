@@ -2,7 +2,8 @@ $(document).ready(function() {
   $('.parallax').parallax();
   $('.modal').modal({
     opacity: .2,
-    background: 'red'
+    background: 'red',
+
   });
   $('.modal').css({
     'max-height': '100%',
@@ -16,6 +17,16 @@ $(document).ready(function() {
     draggable: true, // Choose whether you can drag to open on touch screens,
   });
 
+  $('#external-events').click(function(event){
+      var target = $( event.target );
+      target.each(function() {
+        $('#event_title').val(event.target.textContent);
+        $("label[for='event_title']").empty();
+        // $('#event-date').val(date.format());
+        $('li').attr('href', '#new-booking');
+      });
+
+  });
 
   $('#external-events .fc-event-ext').each(function() {
     $(this).data('event', {
@@ -37,7 +48,7 @@ $(document).ready(function() {
     header: {
       left: 'prev,next today myCustomButton',
       center: 'title',
-      right: 'agendaDay,agendaWeek,month,listDay'
+      right: 'agendaDay,agendaWeek,month'
     },
     columnFormat: 'ddd',
     displayEventEnd: true,
@@ -54,8 +65,8 @@ $(document).ready(function() {
     },
     droppable: true,
     drop: function(date, e, ui, resourceId) {
-      console.log(resourceId.start);
-      $('#new-event').modal('open');
+      // console.log(resourceId.start);
+      $('#new-booking').modal('open');
       $('#event_title').val(e.target.textContent);
       $("label[for='event_title']").empty();
       $('#event-date').val(date.format());
@@ -70,6 +81,7 @@ $(document).ready(function() {
         $.fullCalendar.formatRange(moment1, moment2, 'MM D YYYY');
         $('#event-info-title').text(event.title);
         $('#event-info-date').html("<span class='black-text'>" + event.start.format('dddd, MMMM D') + '</span><br><small>' + event.start.format('h:mm a') + ' – ' + event.end.format('h:mm a') + '</small>');
+        $('#event-info-equipment').text(event.description);
         console.log(event);
 
         $('#event-delete').val(event.id);
@@ -97,9 +109,9 @@ $(document).ready(function() {
     // Triggered when the user clicks on a day.
     dayClick: function(date, e, view) {
       $('#event_title').val(e.target.textContent);
-      $("label[for='event_title']").empty();
+      // $("label[for='event_title']").empty();
       $('#event-date').val(date.format());
-      $('#new-event').modal('open');
+      $('#new-booking').modal('open');
     }
 
   });
