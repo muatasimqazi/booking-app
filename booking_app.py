@@ -122,6 +122,21 @@ def signup():
         msg.body = useraddress
         mail.send(msg)
 
+        email_error = ''
+        exisiting_email_error = ''
+        verify_error = ''
+
+        if len(email)>=120 or len(email)==0:
+            email_error = "Please enter a valid email"
+            return email_error
+
+        if len(email_error)>0:
+            return "Please try again"
+
+        if password != verify_password:
+            verify_error = "password does not match, please try again"
+            return verify_error
+
         exisiting_user = User.query.filter_by(username = username).first()
         if not exisiting_user:
             new_user = User(username, password, first_name, last_name, email, address)
