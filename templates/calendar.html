@@ -4,17 +4,15 @@
     <div class="card">
       <div class="card-panel">
         <div id="external-events">
-          <h5 class="header">Available Services</h5>
+          <h5 class="header center">Available Services</h5>
           <div class="divider"></div>
-          <p>Drag the service type onto the calendar to get started.</p>
+          <p class="">Click or drag the service type onto the calendar</p>
           <br>
           <ul class="container">
-          <li class='fc-event-ext modal-trigger yellow darken-2 btn btn-large no-uppercase'><a class="white-text" href="#">Equipment Upgrade</a></li>
-          <li class='fc-event-ext modal-trigger green btn btn-large no-uppercase'><a class="white-text" href="#">Repair</a></li>
-          <li class='fc-event-ext modal-trigger light-blue btn btn-large no-uppercase'><a class="white-text" href="#">Maintenance</a></li>
+          <li class='fc-event-ext modal-trigger latte btn btn-large no-uppercase'><a class="white-text" href="#">Equipment Upgrade</a></li>
+          <li class='fc-event-ext modal-trigger coffee btn btn-large no-uppercase'><a class="white-text" href="#">Repair</a></li>
+          <li class='fc-event-ext modal-trigger slate btn btn-large no-uppercase'><a class="white-text" href="#">Maintenance</a></li>
         </ul>
-          <a class="btn-floating modal-trigger red right" href="#new-event"><i class="material-icons z-depth-1">add</i></a>
-          <br><br>
         </div>
       </div>
     </div>
@@ -35,3 +33,4 @@
     </div>
 </div>
     {% include "event.html" %} {% include "event-info.html" %} {% endblock %}
+    {% include "action.html" %}

@@ -1,77 +1,99 @@
 {% block content %}
 
-<div id="new-event" class="modal">
-  <div class="modal-content">
-    <h4>Select Schedule</h4>
-    <p>Please select a time slot for your next appointment.</p>
+	<div class="modal small-modal" id="new-booking">
+		<div class="modal-content">
+			<div class="row">
+        <span class="modal-close waves-effect waves-green right"><i class="material-icons grey-text">close</i></span>
+				<form action="{{ url_for('new_booking') }}" class="col s12" method="post">
+					<div class="row">
+            <div class="col s1">
+              <br>
+              <i class="material-icons prefix grey-text">build</i>
+            </div>
+						<div class="col s11">
+              <!-- <h5>Service Request</h5> -->
+							<div class="input-field">
+								<!-- <i class="material-icons prefix">event</i> -->
+								<input class="validate" id="event_title" name="event-title" type="text">
+                <label for="event_title">Enter or select a Service Type</label>
+								<div class="chip" data-time="sss">
+									Upgrade
+								</div>
+								<div class="chip" data-time="sss">
+									Repair
+								</div>
+								<div class="chip" data-time="sss">
+									Maintenance
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s1">
+							<br>
+							<i class="material-icons prefix grey-text">access_time</i>
+						</div>
+						<div class="row">
+							<div class="grey lighten-5 col s11 no-padding">
+								<div class="row">
+									<div class="input-field col s7">
+										<input class="validate" id="event-date" name="event-date" type="date" value="">
+									</div>
+									<div class="input-field col s4">
+										<select id="event-time" name="event-time">
+                      <option value="09:00">9:00 am</option>
+                      <option value="10:00">10:00 am</option>
+                      <option value="11:00">11:00 am</option>
+                      <option value="12:00">12:00 pm</option>
+                      <option value="13:00">1:00 pm</option>
+                      <option value="14:00">2:00 pm</option>
+                      <option value="15:00">3:00 pm</option>
+                      <option value="16:00">4:00 pm</option>
+                      <option value="17:00">5:00 pm</option>
+                      <option value="18:00">6:00 pm</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s1">
+              <br>
+							<i class="material-icons prefix grey-text">whatshot</i>
+						</div>
+						<div class="col s11 grey lighten-5">
+              <div class="row">
+                <br>
+							<span>
+                <input id="furnace" name="description" type="radio" value="Furnace" checked>
+                <label class="black-text" for="furnace">Furnace</label>
+              </span>
+              <span>
+                <input id="ac" name="description" type="radio" value="Air Conditioner">
+                <label class="black-text" for="ac">AC</label>
+              </span>
+              <span>
+                <input id="heat-pump" name="description" type="radio" value="Heath Pump">
+                <label class="black-text"  for="heat-pump">Heat Pump</label>
+              </span>
+                <span>
+                  <input id="heater" name="description" type="radio" value="Heater">
+                  <label class="black-text" for="heater">Heater</label>
+                </span>
+                </div>
+            </div>
+					</div>
+          <div class="row">
+      			<div class="col s1"></div>
+      			<div class="col s11">
+      				<button class="btn waves-effect waves-light purple darken-5 white-text right" name="action" type="submit">Save <i class="material-icons right">send</i></button> <small class="grey-text">By submitting your request, you agree to the <a href="#">Terms and Conditions</a></small>
+      			</div>
+      		</div>
+				</form>
+			</div>
+		</div>
 
-    <div class="row">
-      <form method="post" class="col s12">
-        <div class="input-field">
-          <i class="material-icons prefix">event</i>
-          <input id="event_title" name="event-title" type="text" class="validate">
-          <label for="event_title">Service Name</label>
-        </div>
-        <div class="row">
-          <div class="input-field col s6 no-padding">
-            <i class="material-icons prefix">access_time</i>
-            <input id="event-date" name="event-date" type="date" class="validate" value="">
-          </div>
-          <div class="input-field col s3">
-            <select id="event-start" name="event-start">
-                <option value="09:00">9:00am</option>
-                <option value="10:00">10:00am</option>
-                <option value="11:00">11:00am</option>
-              </select>
-            <label>Start Time</label>
-          </div>
-          <div class="input-field col s3">
-            <select id="event-end" name="event-end">
-              <option value="09:00">9:00am</option>
-              <option value="10:00">10:00am</option>
-              <option value="11:00">11:00am</option>
-              </select>
-            <label>End Time</label>
-          </div>
-        </div>
-
-        <div class="input-field">
-          <i class="material-icons prefix">build</i>
-          <input id="eq_type" placeholder="Furnace, Ac, Heatpump, ..." type="text" class="validate">
-          <label for="eq_type">Equipment Type:</label>
-        </div>
-        <span>
-      <input name="group1" type="radio" id="test1" />
-      <label for="test1">Furnace</label>
-    </span>
-        <span>
-      <input name="group1" type="radio" id="test2" />
-      <label for="test2">Air Conditioner</label>
-    </span>
-        <span>
-      <input class="with-gap" name="group1" type="radio" id="test3"  />
-      <label for="test3">Heat Pump</label>
-    </span>
-        <span>
-      <input name="group1" type="radio" id="test4" />
-      <label for="test4">Water Heater</label>
-    </span>
-        <span>
-      <input name="group1" type="radio" id="test5" />
-      <label for="test5">Fire Place</label>
-    </span>
-    <span><input id="event-ids" type="text" name="id"></span>
-    </div>
-    <br>
-
-  <small class="grey-text">By submitting your request, you agree to the <a href="#">Terms and Conditions</a></small>
-    <button class="btn btn-flat waves-effect waves-light purple darken-4 white-text right" type="submit" name="action">Create
-      <i class="material-icons right">send</i>
-    </button>
-
-    </form>
-  </div>
-
-</div>
+	</div>
 
 {% endblock %}

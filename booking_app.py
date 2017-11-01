@@ -2,11 +2,27 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import json # for output formatting
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask.ext.mail import Mail, Message
 
 app = Flask(__name__)
+
+mail=Mail(app)
+app.config.update(
+	DEBUG=True,
+	#EMAIL SETTINGS
+	MAIL_SERVER='smtp.gmail.com',
+	MAIL_PORT=465,
+	MAIL_USE_SSL=True,
+# NOTE: add your email address and password below
+	MAIL_USERNAME = 'your_email@gmail.com',
+	MAIL_PASSWORD = 'your_password'
+	)
+
+mail=Mail(app)
+
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://booking_app:1234@localhost:8889/booking_app'
-app.config['SQLALCHEMY_ECHO'] = True
+app.config['SQLALCHEMY_ECHO'] = False
 db = SQLAlchemy(app)
 app.secret_key = 'xy337KGys&'
 
@@ -99,6 +115,13 @@ def signup():
         email = request.form['email']
         address = request.form['address']
 
+        subject = request.form.get('username')
+        useraddress = request.form.get('address')
+# NOTE: Change the email address for sender and recipients
+        msg = Message(subject,sender='your_email@gmail.com',recipients=['recipients_email@live.com'])
+        msg.body = useraddress
+        mail.send(msg)
+
         exisiting_user = User.query.filter_by(username = username).first()
         if not exisiting_user:
             new_user = User(username, password, first_name, last_name, email, address)
@@ -109,41 +132,39 @@ def signup():
         else:
             return render_template('index.html', name_error="user already exists", user_name=username)
 
-@app.route("/", methods=['GET', 'POST'])
-@app.route('/home', methods=['GET', 'POST'])
+@app.route("/")
+@app.route('/home')
 def index():
 
     if 'username' in session:
         user = User.query.filter_by(username=session['username']).first()
-        if request.method == 'POST':
-            create_event()
-
-        if request.method == 'GET' and request.args.get('id'):
-            event_id = request.args.get('id')
-            del_event(event_id)
-
         return render_template('index.html', user=user)
+
     return render_template('index.html')
 
 # creates event / booking
-@app.route('/createevent', methods=['POST'])
-def create_event():
-    username = session['username']
-    owner = User.query.filter_by(username=username).first()
-    event_title = request.form['event-title']
-    event_date = request.form['event-date']
-    event_start = event_date + 'T' + request.form['event-start']
-    event_end = event_date + 'T' + request.form['event-end']
-    event_description = "abc"
+@app.route('/new_booking', methods=['POST'])
+def new_booking():
+    if request.method == 'POST':
+        username = session['username']
+        owner = User.query.filter_by(username=username).first()
+        event_title = request.form['event-title']
+        event_date = request.form['event-date']
+        event_time = request.form['event-time']
+        event_start = event_date + 'T' + event_time
+        event_end = int((event_time).split(':')[0]) + 2
 
-    event_new = Event(event_title, event_start, event_end, event_description, owner)
-    db.session.add(event_new)
-    db.session.commit()
-    event_id = event_new.id;
-    return redirect('/')
+        event_end = event_date + 'T' + str(event_end) + ':00'
+        event_description = request.form['description']
+
+        event_new = Event(event_title, event_start, event_end, event_description, owner)
+        db.session.add(event_new)
+        db.session.commit()
+        # event_id = event_new.id;
+    return redirect('/book')
 
 def toList(self):
-    event = {'id': self.id, 'title': self.title, 'start': self.start, 'end': self.end, 'color': 'purple', 'className': '' }
+    event = {'id': self.id, 'title': self.title, 'start': self.start, 'end': self.end, 'description': self.description, 'color': 'purple', 'className': '' }
     return event
 
 # shows the user's booking schedule
@@ -165,6 +186,7 @@ def del_event(event_id):
     delete_event = Event.query.filter_by(id=event_id).first();
     db.session.delete(delete_event)
     db.session.commit();
+    return redirect('/book')
 
 
 @app.route("/faq")
@@ -211,5 +233,14 @@ def logout():
     del session['username']
     return redirect('/home')
 
+@app.route("/book/", methods=['GET', 'POST'])
+def book():
+    if request.method == 'POST':
+        new_booking()
+    if request.method == 'GET' and request.args.get('id'):
+        event_id = request.args.get('id')
+        del_event(event_id)
+
+    return render_template('booking.html')
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
