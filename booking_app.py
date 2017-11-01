@@ -122,10 +122,15 @@ def signup():
         msg.body = useraddress
         mail.send(msg)
 
+        username_error = ''
         email_error = ''
         exisiting_email_error = ''
         verify_error = ''
 
+        if len(username)>=120 or len(username)==0:
+            username_error = "Invalid user name please enter a valid user name"
+            return username_error
+            
         if len(email)>=120 or len(email)==0:
             email_error = "Please enter a valid email"
             return email_error
