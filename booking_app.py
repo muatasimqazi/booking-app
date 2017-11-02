@@ -120,7 +120,27 @@ def signup():
 # NOTE: Change the email address for sender and recipients
         msg = Message(subject,sender='your_email@gmail.com',recipients=['recipients_email@live.com'])
         msg.body = useraddress
-        mail.send(msg)
+        # mail.send(msg)
+
+        username_error = ''
+        email_error = ''
+        exisiting_email_error = ''
+        verify_error = ''
+
+        if len(username)>=120 or len(username)==0:
+            username_error = "Invalid user name please enter a valid user name"
+            return username_error
+
+        if len(email)>=120 or len(email)==0:
+            email_error = "Please enter a valid email"
+            return email_error
+
+        if len(email_error)>0:
+            return "Please try again"
+
+        if password != verify_password:
+            verify_error = "password does not match, please try again"
+            return verify_error
 
         exisiting_user = User.query.filter_by(username = username).first()
         if not exisiting_user:
@@ -243,4 +263,4 @@ def book():
 
     return render_template('booking.html')
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
