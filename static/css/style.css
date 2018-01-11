@@ -58,11 +58,16 @@
   width: 38% !important;
   max-height: 100% !important;
 }
+<<<<<<< HEAD
+
+.parallax h1, .parallax h5 {
+=======
 .small-modal .modal {
   width: 30% !important;
 }
 
 .parallax h3, .parallax h5 {
+>>>>>>> 9cd2c1f8b4427bd0bb6673919ca80dd1b85fa5a0
   position: relative;
   margin: 10px;
   color: #626d71 !important;
