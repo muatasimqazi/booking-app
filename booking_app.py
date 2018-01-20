@@ -2,23 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import json # for output formatting
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from flask.ext.mail import Mail, Message
 
 app = Flask(__name__)
 
-mail=Mail(app)
-app.config.update(
-	DEBUG=True,
-	#EMAIL SETTINGS
-	MAIL_SERVER='smtp.gmail.com',
-	MAIL_PORT=465,
-	MAIL_USE_SSL=True,
-# NOTE: add your email address and password below
-	MAIL_USERNAME = 'your_email@gmail.com',
-	MAIL_PASSWORD = 'your_password'
-	)
-
-mail=Mail(app)
 
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://booking_app:1234@localhost:8889/booking_app'
